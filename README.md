@@ -7,8 +7,8 @@ I decided to go a bit above the requirements for it and I hope you'll like it.  
 To enable the **Inspect** button, simply add the `[InspectTexture]` attribute.  
 Works with both public and private using `[SerializeField]` variables.  
 
-> [InspectTexture] public Texture2D publicTexture;  [InspectTexture] <br>
-> [SerializeField] private Texture2D privateTexture;
+> [InspectTexture] public Texture2D publicTexture; <br>
+> [InspectTexture] [SerializeField] private Texture2D privateTexture;
 <hr>
 
 Package: `ExportedAssignmentPackage.unitypackage` <br>
