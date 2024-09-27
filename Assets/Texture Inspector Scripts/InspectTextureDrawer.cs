@@ -20,24 +20,26 @@ public class InspectTextureDrawer : PropertyDrawer
     
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        if (IsTexture2D(property))
+        if (!IsTexture2D(property))
         {
-            //Add property to inspector GUI
-            EditorGUI.ObjectField(position, property, typeof(Texture2D), label);
+            EditorGUI.HelpBox(position,incorrectDrawerUsageMessage, MessageType.Error);
+            return;
+        }
+        //Add property to inspector GUI
+        EditorGUI.ObjectField(position, property, typeof(Texture2D), label);
 
-            labelWidth = EditorGUIUtility.labelWidth;
-            buttonWidth = labelWidth / 2;
+        labelWidth = EditorGUIUtility.labelWidth;
+        buttonWidth = labelWidth / 2;
 
-            //Disable button UI if property doesn't have a value
-            GUI.enabled = property.objectReferenceValue != null;
+        //Disable button UI if property doesn't have a value
+        GUI.enabled = property.objectReferenceValue != null;
             
-            //Add button to inspector UI
-            buttonRect = new Rect((labelWidth - buttonWidth) + buttonPadding, position.y, buttonWidth, position.height);
-            if (GUI.Button(buttonRect, buttonDisplayText))
-            {
-                InspectTextureMenu.OpenWindow((Texture2D) property.objectReferenceValue);
-            }
-        } else EditorGUI.HelpBox(position,incorrectDrawerUsageMessage, MessageType.Error);
+        //Add button to inspector UI
+        buttonRect = new Rect((labelWidth - buttonWidth) + buttonPadding, position.y, buttonWidth, position.height);
+        if (GUI.Button(buttonRect, buttonDisplayText))
+        {
+            InspectTextureMenu.OpenWindow((Texture2D) property.objectReferenceValue);
+        }
     }
     
     private bool IsTexture2D(SerializedProperty property) => 
